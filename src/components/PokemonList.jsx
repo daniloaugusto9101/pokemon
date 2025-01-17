@@ -1,5 +1,6 @@
 import React from "react";
 import PokemonItem from "./PokemonItem";
+import Pagination from "./Pagination";
 
 const PokemonList = () => {
   return (
@@ -20,6 +21,7 @@ const PokemonList = () => {
           <PokemonItem />
           <PokemonItem />
         </div>
+        <Pagination />
       </section>
     </main>
   );
