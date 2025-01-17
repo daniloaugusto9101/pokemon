@@ -1,5 +1,6 @@
 import "./App.css";
 import Header from "./components/Header";
+import PokemonList from "./components/PokemonList";
 import SearchPokemon from "./components/SearchPokemon";
 
 function App() {
@@ -7,6 +8,7 @@ function App() {
     <>
       <Header />
       <SearchPokemon />
+      <PokemonList />
     </>
   );
 }
