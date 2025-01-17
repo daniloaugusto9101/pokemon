@@ -1,12 +1,12 @@
 import "./App.css";
 import Header from "./components/Header";
-import SectionSearchBar from "./components/SectionSearchBar";
+import SearchPokemon from "./components/SearchPokemon";
 
 function App() {
   return (
     <>
       <Header />
-      <SectionSearchBar />
+      <SearchPokemon />
     </>
   );
 }
