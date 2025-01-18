@@ -1,22 +1,21 @@
 import React from "react";
 import PokemonList from "./PokemonList";
 import Footer from "./Footer";
-import { GlobalStorage } from "../contexts/GlobalContext";
+import { GlobalContext } from "../contexts/GlobalContext";
 
 const Pokemon = () => {
+  const { pokemonDetails, searchResults, handleOnSearch } = React.useContext(GlobalContext);
+
   return (
     <>
-      <GlobalStorage>
-        {/* Campo de pesquisa */}
-        {/* <SearchPokemon /> */}
+      {/* Sessão de pesquisa */}
+      {/* <SearchPokemon onSearch={handleOnSearch} /> */}
 
-        {/* Lista de pokemons */}
-        {/* <PokemonList pokemonDetails={searchResults.length > 0 ? searchResults : pokemonDetails} /> */}
-        <PokemonList />
+      {/* Lista de pokemons */}
+      <PokemonList pokemonDetails={searchResults.length > 0 ? searchResults : pokemonDetails} />
 
-        {/* Footer com paginção */}
-        <Footer />
-      </GlobalStorage>
+      {/* Footer com paginção */}
+      <Footer />
     </>
   );
 };
