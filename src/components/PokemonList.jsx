@@ -1,6 +1,6 @@
 import React from "react";
 import PokemonItem from "./PokemonItem";
-import Pagination from "./Pagination";
+import Footer from "./Footer";
 import PokemonDetail from "./PokemonDetail";
 
 const PokemonList = ({ pokemonDetails }) => {
@@ -16,7 +16,7 @@ const PokemonList = ({ pokemonDetails }) => {
               return <PokemonItem key={pokemon.id} pokemon={pokemon} />;
             })}
           </div>
-          <Pagination />
+          <Footer />
         </section>
         {/* <PokemonDetail /> */}
       </main>
