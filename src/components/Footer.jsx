@@ -8,7 +8,6 @@ const Footer = () => {
   return (
     <footer className="my-14 flex justify-center">
       <Stack spacing={2}>
-        <p>Total: {total}</p>
         <Pagination count={Math.ceil(total / 20)} shape="rounded" size="large" page={page} onChange={handlePageChange} />
       </Stack>
     </footer>

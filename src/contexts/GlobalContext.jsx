@@ -12,7 +12,6 @@ export const GlobalStorage = ({ children }) => {
 
   // Recupera os Pokémons
   const { pokemons, total } = useGetPokemons(page, itemsPerPage);
-  console.log(pokemons);
 
   // Recupera o resultado da API feita pela pesquisa
   const searchResults = useSearchByPokemonName(searchQuery);
