@@ -12,15 +12,25 @@ export const GlobalStorage = ({ children }) => {
   const pokemons = useGetPokemons();
 
   //Recupera o resultado da API feita pela pesquisa
-  const searchResults = useSearchByPokemonName(searchQuery) || [];
+  const searchResults = useSearchByPokemonName(searchQuery);
 
+  //Defini o estado de pokemonDetails com base no resultado da pesquisa
+  React.useEffect(() => {
+    if (searchResults.length > 0) {
+      setPokemonDetails(searchResults);
+    } else {
+      setPokemonDetails(pokemons);
+    }
+  }, [searchResults]);
+
+  //Inicializa o estado de pokemonDetails
   React.useEffect(() => {
     setPokemonDetails(pokemons);
   }, [pokemons]);
 
   // Recupera texto digitado no campo de pesquisa
   function handleOnSearch(pokemonName) {
-    console.log(pokemonName);
+    console.log("chegou aqui", pokemonName);
     setSearchQuery(pokemonName);
   }
 

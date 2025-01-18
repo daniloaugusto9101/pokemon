@@ -2,14 +2,15 @@ import React from "react";
 import PokemonList from "./PokemonList";
 import Footer from "./Footer";
 import { GlobalContext } from "../contexts/GlobalContext";
+import SearchPokemon from "./SearchPokemon";
 
-const Pokemon = () => {
-  const { pokemonDetails, searchResults, handleOnSearch } = React.useContext(GlobalContext);
+const PokemonContent = () => {
+  const { pokemonDetails, searchResults } = React.useContext(GlobalContext);
 
   return (
     <>
       {/* Sessão de pesquisa */}
-      {/* <SearchPokemon onSearch={handleOnSearch} /> */}
+      <SearchPokemon />
 
       {/* Lista de pokemons */}
       <PokemonList pokemonDetails={searchResults.length > 0 ? searchResults : pokemonDetails} />
@@ -20,4 +21,4 @@ const Pokemon = () => {
   );
 };
 
-export default Pokemon;
+export default PokemonContent;

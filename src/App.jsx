@@ -1,6 +1,6 @@
 import "./App.css";
 import Header from "./components/Header";
-import Pokemon from "./components/Pokemon";
+import PokemonContent from "./components/PokemonContent";
 import { GlobalStorage } from "./contexts/GlobalContext";
 
 function App() {
@@ -8,7 +8,7 @@ function App() {
     <>
       <Header />
       <GlobalStorage>
-        <Pokemon />
+        <PokemonContent />
       </GlobalStorage>
     </>
   );
