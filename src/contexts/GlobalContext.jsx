@@ -27,7 +27,7 @@ export const GlobalStorage = ({ children }) => {
 
   // Recupera texto digitado no campo de pesquisa
   function handleOnSearch(pokemonName) {
-    console.log("chegou aqui", pokemonName);
+    // console.log("chegou aqui", pokemonName);
     setSearchQuery(pokemonName);
   }
 

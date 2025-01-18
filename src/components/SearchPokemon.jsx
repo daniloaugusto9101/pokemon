@@ -14,15 +14,10 @@ const SearchPokemon = () => {
     handleOnSearch(searchQuery);
   }
 
-  //Limpa a busca
-  // function resetSearch() {
-  //   setSearchQuery("");
-  //   handleOnSearch("");
-  // }
   return (
     <section className="flex justify-center mt-28  ">
       <form onSubmit={handleOnSubmit} className="flex items-center space-x-12 w-[1140px] ">
-        <SearchInput setSearchQuery={setSearchQuery} />
+        <SearchInput setSearchQuery={setSearchQuery} handleOnSubmit={handleOnSubmit} />
         <FilterInput />
       </form>
     </section>
