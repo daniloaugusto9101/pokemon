@@ -11,7 +11,7 @@ const SearchPokemon = () => {
   //Busca o pokemon
   function handleOnSubmit(event) {
     event.preventDefault();
-    handleOnSearch(searchQuery);
+    handleOnSearch(searchQuery.toLocaleLowerCase());
   }
 
   return (
