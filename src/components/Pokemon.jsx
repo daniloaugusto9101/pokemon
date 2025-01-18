@@ -2,16 +2,17 @@ import React from "react";
 import SearchPokemon from "./SearchPokemon";
 import PokemonList from "./PokemonList";
 import useGetPokemons from "../hooks/useGetPokemons";
+import useSearchByPokemonName from "../hooks/useSearchByPokemonName";
 
 const Pokemon = () => {
   const [pokemonDetails, setPokemonDetails] = React.useState([]);
-  const [searchQuery, setSearchQuery] = React.useState("");
+  const [searchQuery, setSearchQuery] = React.useState(null);
 
-  const searchResults = [];
+  //Recupera o resultado da pesquisa
+  const searchResults = useSearchByPokemonName(searchQuery);
 
   //Recupera os pokemons
   const pokemons = useGetPokemons();
-  console.log("Aqui: ", pokemonDetails);
 
   React.useEffect(() => {
     setPokemonDetails(pokemons);
@@ -25,8 +26,11 @@ const Pokemon = () => {
 
   return (
     <>
-      <SearchPokemon onSearch={handleOnSearch} /> {/* Campo de pesquisa */}
-      <PokemonList pokemonDetails={searchResults.length > 0 ? searchResults : pokemonDetails} /> {/* Lista de pokemons */}
+      {/* Campo de pesquisa */}
+      <SearchPokemon onSearch={handleOnSearch} />
+
+      {/* Lista de pokemons */}
+      <PokemonList pokemonDetails={searchResults.length > 0 ? searchResults : pokemonDetails} />
     </>
   );
 };

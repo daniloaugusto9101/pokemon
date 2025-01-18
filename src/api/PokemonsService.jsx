@@ -5,9 +5,13 @@ const getPokemons = (limit = 20) => {
     params: { limit },
   });
 };
+const searchByPokemonName = (idOrName) => {
+  return api.get(`/pokemon/${idOrName}`);
+};
 
 const PokemonsService = {
   getPokemons,
+  searchByPokemonName,
 };
 
 export default PokemonsService;
