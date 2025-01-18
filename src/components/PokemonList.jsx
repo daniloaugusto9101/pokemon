@@ -1,7 +1,9 @@
 import React from "react";
 import PokemonItem from "./PokemonItem";
+import { GlobalContext } from "../contexts/GlobalContext";
 
-const PokemonList = ({ pokemonDetails }) => {
+const PokemonList = () => {
+  const { pokemonDetails } = React.useContext(GlobalContext);
   if (pokemonDetails) {
     return (
       <main className="flex justify-center mt-28 ">
