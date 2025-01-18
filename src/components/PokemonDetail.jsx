@@ -14,7 +14,7 @@ const PokemonDetail = () => {
         {/*Corpo do modal  */}
         <div className="bg-yellow-300  rounded-b-2xl flex flex-col items-center gap-8 p-8">
           {/* imaggem */}
-          <div className="w-56 h-56 flex items-center justify-center bg-gray-200 rounded-t-lg bg-green-300">
+          <div className="w-56 h-56 flex items-center justify-center bg-gray-200 rounded-t-lg ">
             <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png" alt="Bulbasaur" className="w-24 h-24" />
           </div>
 
