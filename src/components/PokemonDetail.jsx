@@ -1,14 +1,16 @@
 import React from "react";
 import { FaFrog } from "react-icons/fa";
 
-const PokemonDetail = () => {
+const PokemonDetail = ({ pokemon, handleCardClick }) => {
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
       <div className="bg-white w-[500px] rounded-2xl shadow-lg relative">
         {/* Barra de titulo */}
         <div className="bg-gray-200 rounded-t-2xl p-4 relative">
-          <h2 className="text-lg text-gray-800 font-bold text-center">Pokemon name</h2>
-          <button className="absolute top-4 right-4 text-gray-500 hover:text-gray-700">X</button>
+          <h2 className="text-lg text-gray-800 font-bold text-center">{pokemon.name}</h2>
+          <button className="absolute top-4 right-4 text-gray-500 hover:text-gray-700 p-10" onClick={handleCardClick}>
+            Fechar
+          </button>
         </div>
 
         {/*Corpo do modal  */}

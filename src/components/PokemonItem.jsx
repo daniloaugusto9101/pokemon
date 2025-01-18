@@ -1,13 +1,23 @@
 import React from "react";
-import { FaFrog } from "react-icons/fa";
+import PokemonDetail from "./PokemonDetail";
 
 function capitalizeFirstLetter(string) {
   return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
 const PokemonItem = ({ pokemon }) => {
+  const [isModalOpen, setIsModalOpen] = React.useState(false);
+
+  const handleCardClick = () => {
+    setIsModalOpen((prev) => !prev);
+  };
+
+  const handleCloseModal = (e) => {
+    setIsModalOpen(false);
+  };
+
   return (
-    <div className="w-64 h-72 border border-gray-300 rounded-lg shadow-md flex flex-col items-center justify-between ">
+    <div className="w-64 h-72 border border-gray-300 rounded-lg shadow-md flex flex-col items-center justify-between " onClick={handleCardClick}>
       {/* Imagem do Pokémon */}
       <div className="w-full h-2/3 flex items-center justify-center bg-gray-200 rounded-t-lg">
         <img src={pokemon.sprites.versions["generation-v"]["black-white"].animated.front_default} alt="Pokemon GIF" className="w-20" />
@@ -23,6 +33,7 @@ const PokemonItem = ({ pokemon }) => {
           <img src={pokemon.sprites.versions["generation-i"]["red-blue"].front_default} alt="Pokemon GIF" className="w-8" />
         </div>
       </div>
+      {isModalOpen && <PokemonDetail pokemon={pokemon} handleCloseModal={handleCloseModal} />}
     </div>
   );
 };
