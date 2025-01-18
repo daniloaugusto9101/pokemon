@@ -21,12 +21,7 @@ export const GlobalStorage = ({ children }) => {
     } else {
       setPokemonDetails(pokemons);
     }
-  }, [searchResults]);
-
-  //Inicializa o estado de pokemonDetails
-  React.useEffect(() => {
-    setPokemonDetails(pokemons);
-  }, [pokemons]);
+  }, [searchResults, pokemons]);
 
   // Recupera texto digitado no campo de pesquisa
   function handleOnSearch(pokemonName) {
@@ -34,5 +29,5 @@ export const GlobalStorage = ({ children }) => {
     setSearchQuery(pokemonName);
   }
 
-  return <GlobalContext.Provider value={{ pokemonDetails, searchResults, handleOnSearch }}>{children}</GlobalContext.Provider>;
+  return <GlobalContext.Provider value={{ pokemonDetails, handleOnSearch }}>{children}</GlobalContext.Provider>;
 };
