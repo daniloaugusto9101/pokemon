@@ -7,14 +7,17 @@ export const GlobalContext = React.createContext();
 export const GlobalStorage = ({ children }) => {
   const [pokemonDetails, setPokemonDetails] = React.useState([]);
   const [searchQuery, setSearchQuery] = React.useState(null);
+  const [page, setPage] = React.useState(1);
+  const itemsPerPage = 20;
 
-  //Recupera os Pokémons
-  const pokemons = useGetPokemons();
+  // Recupera os Pokémons
+  const { pokemons, total } = useGetPokemons(page, itemsPerPage);
+  console.log(pokemons);
 
-  //Recupera o resultado da API feita pela pesquisa
+  // Recupera o resultado da API feita pela pesquisa
   const searchResults = useSearchByPokemonName(searchQuery);
 
-  //Defini o estado de pokemonDetails com base no resultado da pesquisa
+  // Define o estado de pokemonDetails com base no resultado da pesquisa
   React.useEffect(() => {
     if (searchResults.length > 0) {
       setPokemonDetails(searchResults);
@@ -29,5 +32,10 @@ export const GlobalStorage = ({ children }) => {
     setSearchQuery(pokemonName);
   }
 
-  return <GlobalContext.Provider value={{ pokemonDetails, handleOnSearch }}>{children}</GlobalContext.Provider>;
+  // Handle page change
+  const handlePageChange = (event, value) => {
+    setPage(value);
+  };
+
+  return <GlobalContext.Provider value={{ pokemonDetails, handleOnSearch, total, page, handlePageChange }}>{children}</GlobalContext.Provider>;
 };
