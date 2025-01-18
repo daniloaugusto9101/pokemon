@@ -2,33 +2,8 @@ import React from "react";
 import PokemonItem from "./PokemonItem";
 import Pagination from "./Pagination";
 import PokemonDetail from "./PokemonDetail";
-import useFetch from "../hooks/useFetch";
 
-const PokemonList = () => {
-  const { data, loading, error, request } = useFetch();
-  const [pokemonDetails, setPokemonDetails] = React.useState([]);
-
-  React.useEffect(() => {
-    const fetchPokemonDetails = async () => {
-      const { json } = await request("https://pokeapi.co/api/v2/pokemon?limit=20");
-
-      if (json && json.results) {
-        // Realizar as requisições individuais para cada Pokémon
-        const pokemonDetails = await Promise.all(
-          json.results.map(async (pokemon) => {
-            const { json: details } = await request(pokemon.url);
-            return details;
-          })
-        );
-        setPokemonDetails(pokemonDetails);
-      }
-    };
-
-    fetchPokemonDetails();
-  }, [request]);
-
-  if (error) return <p>{error}</p>;
-  if (loading) return <p>Carregando...</p>;
+const PokemonList = ({ pokemonDetails }) => {
   if (pokemonDetails) {
     return (
       <main className="flex justify-center mt-28 ">
@@ -43,7 +18,7 @@ const PokemonList = () => {
           </div>
           <Pagination />
         </section>
-        <PokemonDetail />
+        {/* <PokemonDetail /> */}
       </main>
     );
   } else {
