@@ -15,8 +15,8 @@ const SearchPokemon = () => {
   }
 
   return (
-    <section className="flex justify-center mt-28  ">
-      <form onSubmit={handleOnSubmit} className="flex items-center space-x-12 w-[1140px] ">
+    <section className="flex  justify-center mt-28 w-full">
+      <form onSubmit={handleOnSubmit} className="flex flex-col sm:flex-row items-center  gap-5 w-[1140px] mx-5  ">
         <SearchInput setSearchQuery={setSearchQuery} handleOnSubmit={handleOnSubmit} />
         <FilterInput />
       </form>

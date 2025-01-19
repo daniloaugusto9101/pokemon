@@ -8,9 +8,9 @@ const PokemonList = () => {
   if (pokemonDetails) {
     return (
       <main className="flex justify-center mt-14 ">
-        <section className="w-[1140px]">
+        <section className="w-[1140px]  mx-5">
           <header>
-            <p className="flex items-center text-lg text-gray-600 gap-2">
+            <p className="flex items-center justify-center sm:justify-start text-lg text-gray-600 gap-2">
               <TbPokeball className="text-xl " /> Total: {total} Pokémons
             </p>
           </header>

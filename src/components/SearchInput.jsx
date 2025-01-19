@@ -14,7 +14,7 @@ const SearchInput = ({ setSearchQuery, handleOnSubmit }) => {
       <input
         type="text"
         placeholder="Pesquise um Pokémon"
-        className="pl-6 pr-12 py-3 border-2 border-gray-300 rounded-full min-w-96 focus:outline-none focus:shadow-md"
+        className="pl-6 pr-12 py-3 border-2 border-gray-300 rounded-full sm:min-w-96 focus:outline-none focus:shadow-md"
         onChange={(event) => {
           setSearchQuery(event.target.value);
         }}
