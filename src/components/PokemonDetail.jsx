@@ -1,63 +1,85 @@
 import React from "react";
-import { FaFrog } from "react-icons/fa";
+import { capitalizeFirstLetter } from "../utils/stringUtils";
+import { IoCloseSharp } from "react-icons/io5";
+import useFetch from "../hooks/useFetch";
+import { TbPokeball } from "react-icons/tb";
 
 const PokemonDetail = ({ pokemon, handleCardClick }) => {
-  return (
-    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
-      <div className="bg-white w-[500px] rounded-2xl shadow-lg relative">
-        {/* Barra de titulo */}
-        <div className="bg-gray-200 rounded-t-2xl p-4 relative">
-          <h2 className="text-lg text-gray-800 font-bold text-center">{pokemon.name}</h2>
-          <button className="absolute top-4 right-4 text-gray-500 hover:text-gray-700 p-10" onClick={handleCardClick}>
-            Fechar
-          </button>
-        </div>
+  const [sepecies, setSpecies] = React.useState(null);
 
-        {/*Corpo do modal  */}
-        <div className="bg-yellow-300  rounded-b-2xl flex flex-col items-center gap-8 p-8">
-          {/* imaggem */}
-          <div className="w-56 h-56 flex items-center justify-center bg-gray-200 rounded-t-lg ">
-            <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png" alt="Bulbasaur" className="w-24 h-24" />
+  // console.log("pokemon", sepecies.flavor_text_entries[0].flavor_text);
+  const { request } = useFetch();
+  React.useEffect(() => {
+    const fetchPokemons = async () => {
+      const resp = await request(pokemon.species.url);
+      setSpecies(resp.json);
+    };
+
+    fetchPokemons();
+  }, [pokemon, request]);
+
+  if (!sepecies) return null;
+  if (sepecies) {
+    return (
+      <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
+        <div className="bg-white rounded-2xl shadow-lg relative max-w-xl w-full overflow-auto mx-5">
+          {/* Barra de título */}
+          <div className="bg-gray-200 rounded-t-2xl p-4 relative">
+            <h2 className="text-lg text-gray-800 font-bold text-center">{capitalizeFirstLetter(pokemon?.name)}</h2>
+            <button className="absolute top-4 right-4 text-gray-500 hover:text-gray-700 text-2xl" onClick={handleCardClick}>
+              <IoCloseSharp />
+            </button>
           </div>
 
-          {/*botão abaixo da imagem  */}
-          <div className="flex gap-5">
-            <span className="bg-gray-400 px-2 py-1 rounded-full text-gray-100 text-sm">teste1 teste1</span>
-            <span className="bg-gray-500 px-2 py-1 rounded-full text-gray-100 text-sm">teste1 teste1</span>
-          </div>
+          {/* Corpo do modal */}
+          <div className="rounded-b-2xl flex flex-col items-center space-y-10 p-8">
+            {/* Imagem */}
+            <div className="w-48 h-48 flex items-center justify-center bg-gray-200 rounded-2xl border-4 border-gray-400 ">
+              <img src={pokemon?.sprites?.versions["generation-v"]?.["black-white"]?.animated?.front_default} alt="Pokemon GIF" className="w-28" />
+            </div>
 
-          {/* icones de Informações */}
-          <div className="flex justify-center gap-5">
-            <div>
-              <div className="flex items-center justify-center gap-2">
-                <FaFrog />
-                <span>info</span>
-              </div>
-              <p>lorem lorem</p>
+            {/* Botão abaixo da imagem */}
+            <div className="flex gap-5">
+              <span className="bg-gray-400 rounded-full text-gray-100 text-[9px] px-2">ability: {pokemon?.abilities[0]?.ability?.name}</span>
+              <span className="bg-gray-400 rounded-full text-gray-100 text-[9px] px-2">ability: {pokemon?.abilities[1]?.ability?.name}</span>
             </div>
-            <div>
-              <div className="flex items-center justify-center gap-2">
-                <FaFrog />
-                <span>info</span>
-              </div>
-              <p>lorem lorem</p>
-            </div>
-            <div>
-              <div className="flex items-center justify-center gap-2">
-                <FaFrog />
-                <span>info</span>
-              </div>
-              <p>lorem lorem</p>
-            </div>
-          </div>
 
-          {/* Descrição */}
-          <p className="text-gray-600 mb-6 bg-blue-300">Este é o conteúdo do modal. Você pode adicionar textos, botões ou qualquer outro elemento aqui.</p>
-          <p className="text-gray-600 mb-6 bg-blue-300">lorem lorem</p>
+            {/* Ícones de Informações */}
+            <div className="flex justify-center gap-6 ">
+              <div>
+                <div className="flex items-center justify-center gap-2 mb-2">
+                  <TbPokeball className="text-xl text-gray-500" />
+                  <span className="text-gray-800 text-md">Geração</span>
+                </div>
+                <p className="text-gray-500 text-sm text-center">{sepecies?.generation?.name}</p>
+              </div>
+              <div className="border border-gray-300"></div>
+              <div>
+                <div className="flex items-center justify-center gap-2 mb-2">
+                  <TbPokeball className="text-xl text-gray-500" />
+                  <span className="text-gray-800 text-md">Tx cresc.</span>
+                </div>
+                <p className="text-gray-500 text-sm text-center">{sepecies?.growth_rate?.name}</p>
+              </div>
+
+              <div className="border border-gray-300"></div>
+              <div>
+                <div className="flex items-center justify-center gap-2 mb-2">
+                  <TbPokeball className="text-xl text-gray-500" />
+                  <span className="text-gray-800 text-md">Habitat</span>
+                </div>
+                <p className="text-gray-500 text-sm text-center">{sepecies?.habitat?.name}</p>
+              </div>
+            </div>
+
+            {/* Descrição */}
+            <p className="text-gray-600 mb-6">{sepecies?.flavor_text_entries[0]?.flavor_text}</p>
+            <p className="text-gray-900 mb-6 text-sm font-bold">Forma: {sepecies?.shape.name}</p>
+          </div>
         </div>
       </div>
-    </div>
-  );
+    );
+  }
 };
 
 export default PokemonDetail;

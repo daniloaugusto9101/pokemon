@@ -1,9 +1,6 @@
 import React from "react";
 import PokemonDetail from "./PokemonDetail";
-
-function capitalizeFirstLetter(string) {
-  return string.charAt(0).toUpperCase() + string.slice(1);
-}
+import { capitalizeFirstLetter } from "../utils/stringUtils";
 
 const PokemonItem = ({ pokemon }) => {
   const [isModalOpen, setIsModalOpen] = React.useState(false);
