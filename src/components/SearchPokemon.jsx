@@ -2,6 +2,7 @@ import React from "react";
 import SearchInput from "./SearchInput";
 import FilterInput from "./FilterInput";
 import { GlobalContext } from "../contexts/GlobalContext";
+import { toLocaleLowerCaseCustom } from "../utils/stringUtils";
 
 const SearchPokemon = () => {
   const [searchQuery, setSearchQuery] = React.useState();
@@ -11,7 +12,7 @@ const SearchPokemon = () => {
   //Busca o pokemon
   function handleOnSubmit(event) {
     event.preventDefault();
-    handleOnSearch(searchQuery.toLocaleLowerCase());
+    handleOnSearch(toLocaleLowerCaseCustom(searchQuery));
   }
 
   return (
