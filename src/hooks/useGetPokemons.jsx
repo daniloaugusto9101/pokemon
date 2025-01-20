@@ -1,6 +1,7 @@
 import React from "react";
-import PokemonsService from "../api/PokemonsService";
 import useFetch from "./useFetch";
+
+const apiUrl = import.meta.env.VITE_API_URL;
 
 const useGetPokemons = (page, itemsPerPage) => {
   const [pokemons, setPokemons] = React.useState([]);
@@ -10,12 +11,12 @@ const useGetPokemons = (page, itemsPerPage) => {
   React.useEffect(() => {
     const fetchPokemons = async () => {
       const offset = (page - 1) * itemsPerPage;
-      const { data } = await PokemonsService.getPokemons(itemsPerPage, offset);
+      const { json } = await request(`${apiUrl}/pokemon/?offset=${offset}&limit=${itemsPerPage}`);
 
-      if (data && data.results) {
-        setTotal(data.count);
+      if (json && json.results) {
+        setTotal(json.count);
         const detailedPokemons = await Promise.all(
-          data.results.map(async (pokemon) => {
+          json.results.map(async (pokemon) => {
             const { json: details } = await request(pokemon.url);
             return details;
           })
