@@ -1,6 +1,7 @@
 import React from "react";
 import useGetPokemons from "../hooks/useGetPokemons";
 import useSearchByPokemonName from "../hooks/useSearchByPokemonName";
+import { validateSearch } from "../utils/stringUtils";
 
 export const GlobalContext = React.createContext();
 
@@ -27,7 +28,8 @@ export const GlobalStorage = ({ children }) => {
 
   // Recupera texto digitado no campo de pesquisa
   function handleOnSearch(pokemonName) {
-    setSearchQuery(pokemonName);
+    const str = validateSearch(pokemonName);
+    setSearchQuery(str);
   }
 
   // Handle page change
