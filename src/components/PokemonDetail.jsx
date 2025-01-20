@@ -7,7 +7,6 @@ import { TbPokeball } from "react-icons/tb";
 const PokemonDetail = ({ pokemon, handleCardClick }) => {
   const [sepecies, setSpecies] = React.useState(null);
 
-  // console.log("pokemon", sepecies.flavor_text_entries[0].flavor_text);
   const { request } = useFetch();
   React.useEffect(() => {
     const fetchPokemons = async () => {

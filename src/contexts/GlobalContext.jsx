@@ -14,7 +14,7 @@ export const GlobalStorage = ({ children }) => {
   const { pokemons, total } = useGetPokemons(page, itemsPerPage);
 
   // Recupera o resultado da API feita pela pesquisa
-  const searchResults = useSearchByPokemonName(searchQuery);
+  const { searchResults } = useSearchByPokemonName(searchQuery);
 
   // Define o estado de pokemonDetails com base no resultado da pesquisa
   React.useEffect(() => {
@@ -27,7 +27,6 @@ export const GlobalStorage = ({ children }) => {
 
   // Recupera texto digitado no campo de pesquisa
   function handleOnSearch(pokemonName) {
-    // console.log("chegou aqui", pokemonName);
     setSearchQuery(pokemonName);
   }
 

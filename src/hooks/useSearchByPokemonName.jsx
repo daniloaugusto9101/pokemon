@@ -1,20 +1,30 @@
 import React from "react";
-import PokemonsService from "../api/PokemonsService";
+import useFetch from "./useFetch";
+
+const apiUrl = import.meta.env.VITE_API_URL;
 
 const useSearchByPokemonName = (idOrName) => {
   const [searchResults, setSearchResults] = React.useState([]);
+  const { request } = useFetch();
 
   React.useEffect(() => {
-    if (!idOrName) {
-      setSearchResults([]);
-      return;
-    }
-    PokemonsService.searchByPokemonName(idOrName).then(({ data }) => {
-      setSearchResults([data]);
-    });
-  }, [idOrName]);
+    const fetchPokemons = async () => {
+      try {
+        if (!idOrName || isNaN(Number(idOrName))) {
+          setSearchResults([]);
+          return;
+        }
+        const { json } = await request(`${apiUrl}/pokemon/${idOrName}`);
+        setSearchResults(json ? [json] : []);
+      } catch (error) {
+        setSearchResults([]);
+      }
+    };
 
-  return searchResults;
+    fetchPokemons();
+  }, [request, idOrName]);
+
+  return { searchResults };
 };
 
 export default useSearchByPokemonName;
