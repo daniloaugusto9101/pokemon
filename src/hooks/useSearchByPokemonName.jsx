@@ -10,7 +10,7 @@ const useSearchByPokemonName = (idOrName) => {
   React.useEffect(() => {
     const fetchPokemons = async () => {
       try {
-        if (!idOrName || isNaN(Number(idOrName))) {
+        if (!idOrName) {
           setSearchResults([]);
           return;
         }
