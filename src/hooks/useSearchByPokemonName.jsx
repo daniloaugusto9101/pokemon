@@ -5,7 +5,7 @@ const apiUrl = import.meta.env.VITE_API_URL;
 
 const useSearchByPokemonName = (idOrName) => {
   const [searchResults, setSearchResults] = React.useState([]);
-  const { request } = useFetch();
+  const { request, error } = useFetch();
 
   React.useEffect(() => {
     const fetchPokemons = async () => {
@@ -24,7 +24,7 @@ const useSearchByPokemonName = (idOrName) => {
     fetchPokemons();
   }, [request, idOrName]);
 
-  return { searchResults };
+  return { searchResults, error };
 };
 
 export default useSearchByPokemonName;

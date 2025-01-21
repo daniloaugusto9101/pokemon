@@ -12,18 +12,14 @@ export const GlobalStorage = ({ children }) => {
   const itemsPerPage = 20;
 
   // Recupera os Pokémons
-  const { pokemons, total } = useGetPokemons(page, itemsPerPage);
+  const { pokemons, total, error: fetchError } = useGetPokemons(page, itemsPerPage);
 
   // Recupera o resultado da API feita pela pesquisa
-  const { searchResults } = useSearchByPokemonName(searchQuery);
+  const { searchResults, error: searchError } = useSearchByPokemonName(searchQuery);
 
   // Define o estado de pokemonDetails com base no resultado da pesquisa
   React.useEffect(() => {
-    if (searchResults.length > 0) {
-      setPokemonDetails(searchResults);
-    } else {
-      setPokemonDetails(pokemons);
-    }
+    setPokemonDetails(searchResults.length > 0 ? searchResults : pokemons);
   }, [searchResults, pokemons]);
 
   // Recupera texto digitado no campo de pesquisa
@@ -37,5 +33,8 @@ export const GlobalStorage = ({ children }) => {
     setPage(value);
   };
 
-  return <GlobalContext.Provider value={{ pokemonDetails, handleOnSearch, total, page, handlePageChange }}>{children}</GlobalContext.Provider>;
+  // Combine os erros e loading para exibição
+  const combinedError = searchError || fetchError;
+
+  return <GlobalContext.Provider value={{ pokemonDetails, handleOnSearch, total, page, handlePageChange, combinedError }}>{children}</GlobalContext.Provider>;
 };

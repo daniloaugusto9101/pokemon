@@ -3,11 +3,12 @@ import { capitalizeFirstLetter } from "../utils/stringUtils";
 import { IoCloseSharp } from "react-icons/io5";
 import useFetch from "../hooks/useFetch";
 import { TbPokeball } from "react-icons/tb";
+import ErrorMessage from "./ErrorMessage";
 
 const PokemonDetail = ({ pokemon, handleCardClick }) => {
   const [sepecies, setSpecies] = React.useState(null);
 
-  const { request } = useFetch();
+  const { request, error } = useFetch();
   React.useEffect(() => {
     const fetchPokemons = async () => {
       const resp = await request(pokemon.species.url);
@@ -17,7 +18,7 @@ const PokemonDetail = ({ pokemon, handleCardClick }) => {
     fetchPokemons();
   }, [pokemon, request]);
 
-  if (!sepecies) return null;
+  if (error) return <ErrorMessage title="ERRO! Detalhes dos Pokémons" message="Ocorreu um erro ao tentar repurar os detalhes dos Pokemons" />;
   if (sepecies) {
     return (
       <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">

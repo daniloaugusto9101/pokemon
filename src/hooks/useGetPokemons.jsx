@@ -6,7 +6,7 @@ const apiUrl = import.meta.env.VITE_API_URL;
 const useGetPokemons = (page, itemsPerPage) => {
   const [pokemons, setPokemons] = React.useState([]);
   const [total, setTotal] = React.useState(0);
-  const { request } = useFetch();
+  const { request, error } = useFetch();
 
   React.useEffect(() => {
     const fetchPokemons = async () => {
@@ -28,7 +28,7 @@ const useGetPokemons = (page, itemsPerPage) => {
     fetchPokemons();
   }, [request, page, itemsPerPage]);
 
-  return { pokemons, total };
+  return { pokemons, total, error };
 };
 
 export default useGetPokemons;
