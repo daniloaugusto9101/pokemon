@@ -45,14 +45,12 @@ export const GlobalStorage = ({ children }) => {
     try {
       //Proteção para não buscar se não tiver nada digitado
       if (!searchQuery) {
-        setSearchResults([]);
+        setFilteredPokemons([]);
         return;
       }
 
-      const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${searchQuery}`);
+      const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${searchQuery.trim().toLowerCase()}`);
       const data = await response.json();
-
-      setTotal(1);
 
       setFilteredPokemons([data]);
     } catch (error) {
@@ -65,5 +63,9 @@ export const GlobalStorage = ({ children }) => {
   const handlePageChange = (event, value) => {
     setPage(value); // Atualiza a página atual
   };
-  return <GlobalContext.Provider value={{ searchQuery, setSearchQuery, allPokemons, filteredPokemons, loading, total, page, handlePageChange, handleSearch }}>{children}</GlobalContext.Provider>;
+
+  // Lista ativa para exibição (filtrada ou completa)
+  const listPokemons = filteredPokemons.length > 0 ? filteredPokemons : allPokemons;
+
+  return <GlobalContext.Provider value={{ searchQuery, setSearchQuery, listPokemons, loading, total, page, handlePageChange, handleSearch }}>{children}</GlobalContext.Provider>;
 };

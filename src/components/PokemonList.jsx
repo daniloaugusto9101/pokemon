@@ -5,9 +5,9 @@ import { GlobalContext } from "../contexts/GlobalContext";
 import ErrorMessage from "./ErrorMessage";
 
 const PokemonList = () => {
-  const { allPokemons, filteredPokemons, total } = React.useContext(GlobalContext);
-  const listPokemons = filteredPokemons.length > 0 ? filteredPokemons : allPokemons;
-  console.log("PokemonList", filteredPokemons);
+  const { listPokemons, total } = React.useContext(GlobalContext);
+  // const listPokemons = filteredPokemons.length > 0 ? filteredPokemons : allPokemons;
+  console.log("PokemonList", listPokemons);
 
   // if (combinedError) return <ErrorMessage title="ERRO! Lista de Pokémons" message="Ocorreu um erro ao tentar repurar a lista de cards dos Pokémons" />;
   if (listPokemons) {

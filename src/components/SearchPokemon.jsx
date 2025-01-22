@@ -6,11 +6,16 @@ import { GlobalContext } from "../contexts/GlobalContext";
 const SearchPokemon = () => {
   const { searchQuery, setSearchQuery, handleSearch } = React.useContext(GlobalContext);
 
+  function submitForm(event) {
+    event.preventDefault();
+    handleSearch();
+  }
+
   return (
     <section className="flex justify-center mt-28 w-full">
-      <div className="flex flex-col sm:flex-row items-center gap-5 w-[1140px] mx-5">
+      <form className="flex flex-col sm:flex-row items-center gap-5 w-[1140px] mx-5" onSubmit={submitForm}>
         <div className="relative">
-          <button className="absolute right-3 top-1/2 transform -translate-y-1/2 p-2 rounded-full bg-gray-300 text-gray-500 cursor-pointer" onClick={handleSearch}>
+          <button className="absolute right-3 top-1/2 transform -translate-y-1/2 p-2 rounded-full bg-gray-300 text-gray-500 cursor-pointer" type="submit">
             <FaSearch />
           </button>
           <input type="text" value={searchQuery || ""} placeholder="Pesquise um Pokémon" className="pl-6 pr-12 py-3 border-2 border-gray-300 rounded-full sm:min-w-96 focus:outline-none focus:shadow-md" onChange={(e) => setSearchQuery(e.target.value)} />
@@ -19,7 +24,7 @@ const SearchPokemon = () => {
           <IoFilterSharp className="text-gray-500" />
           <p>Filtrar por</p>
         </div>
-      </div>
+      </form>
     </section>
   );
 };
