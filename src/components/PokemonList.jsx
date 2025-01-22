@@ -5,10 +5,11 @@ import { GlobalContext } from "../contexts/GlobalContext";
 import ErrorMessage from "./ErrorMessage";
 
 const PokemonList = () => {
-  const { pokemonDetails, total, combinedError } = React.useContext(GlobalContext);
+  const { filteredPokemons, total } = React.useContext(GlobalContext);
+  // console.log("", filteredPokemons);
 
-  if (combinedError) return <ErrorMessage title="ERRO! Lista de Pokémons" message="Ocorreu um erro ao tentar repurar a lista de cards dos Pokémons" />;
-  if (pokemonDetails && !combinedError) {
+  // if (combinedError) return <ErrorMessage title="ERRO! Lista de Pokémons" message="Ocorreu um erro ao tentar repurar a lista de cards dos Pokémons" />;
+  if (filteredPokemons) {
     return (
       <main className="flex justify-center mt-14 ">
         <section className="w-[1140px]  mx-5">
@@ -18,7 +19,7 @@ const PokemonList = () => {
             </p>
           </header>
           <div className="mt-14 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 justify-items-center">
-            {pokemonDetails.map((pokemon) => {
+            {filteredPokemons.map((pokemon) => {
               return <PokemonItem key={pokemon.id} pokemon={pokemon} />;
             })}
           </div>

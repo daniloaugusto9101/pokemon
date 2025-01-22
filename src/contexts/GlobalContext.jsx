@@ -1,40 +1,56 @@
 import React from "react";
-import useGetPokemons from "../hooks/useGetPokemons";
-import useSearchByPokemonName from "../hooks/useSearchByPokemonName";
-import { validateSearch } from "../utils/stringUtils";
 
 export const GlobalContext = React.createContext();
 
 export const GlobalStorage = ({ children }) => {
-  const [pokemonDetails, setPokemonDetails] = React.useState([]);
-  const [searchQuery, setSearchQuery] = React.useState(null);
+  const [searchQuery, setSearchQuery] = React.useState("");
+  const [allPokemons, setAllPokemons] = React.useState([]);
+  const [filteredPokemons, setFilteredPokemons] = React.useState([]);
+  const [loading, setLoading] = React.useState(true); // Indica carregamento inicial
   const [page, setPage] = React.useState(1);
+  const [total, setTotal] = React.useState(0);
   const itemsPerPage = 20;
 
-  // Recupera os Pokémons
-  const { pokemons, total, error: fetchError } = useGetPokemons(page, itemsPerPage);
-
-  // Recupera o resultado da API feita pela pesquisa
-  const { searchResults, error: searchError } = useSearchByPokemonName(searchQuery);
-
-  // Define o estado de pokemonDetails com base no resultado da pesquisa
+  // Fetch inicial para carregar os Pokémons com detalhes
   React.useEffect(() => {
-    setPokemonDetails(searchResults.length > 0 ? searchResults : pokemons);
-  }, [searchResults, pokemons]);
+    const fetchPokemons = async () => {
+      try {
+        const offset = (page - 1) * itemsPerPage;
+        const response = await fetch(`https://pokeapi.co/api/v2/pokemon?offset=${offset}&limit=${itemsPerPage}`);
+        const data = await response.json();
 
-  // Recupera texto digitado no campo de pesquisa
-  function handleOnSearch(pokemonName) {
-    const str = validateSearch(pokemonName);
-    setSearchQuery(str);
-  }
+        setTotal(data.count);
+        const pokemonDetails = await Promise.all(
+          data.results.map(async (pokemon) => {
+            const res = await fetch(pokemon.url);
+            return await res.json();
+          })
+        );
 
-  // Handle page change
+        setAllPokemons(pokemonDetails.filter(Boolean)); // Salva todos os detalhes
+        setFilteredPokemons(pokemonDetails.filter(Boolean)); // Exibe todos inicialmente
+      } catch (error) {
+        console.error("Erro ao buscar os Pokémons:", error);
+      } finally {
+        setLoading(false); // Finaliza o carregamento
+      }
+    };
+
+    fetchPokemons();
+  }, []);
+
+  // Atualiza a lista filtrada sempre que o termo de busca mudar
+  React.useEffect(() => {
+    if (searchQuery) {
+      setFilteredPokemons(allPokemons.filter((pokemon) => pokemon.name.toLowerCase().includes(searchQuery.toLowerCase())));
+    } else {
+      setFilteredPokemons(allPokemons); // Mostra todos os Pokémons
+    }
+  }, [searchQuery, allPokemons]);
+
   const handlePageChange = (event, value) => {
     setPage(value);
   };
 
-  // Combine os erros e loading para exibição
-  const combinedError = searchError || fetchError;
-
-  return <GlobalContext.Provider value={{ pokemonDetails, handleOnSearch, total, page, handlePageChange, combinedError }}>{children}</GlobalContext.Provider>;
+  return <GlobalContext.Provider value={{ searchQuery, setSearchQuery, filteredPokemons, loading, total, page, handlePageChange }}>{children}</GlobalContext.Provider>;
 };

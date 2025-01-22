@@ -7,9 +7,7 @@ function App() {
   return (
     <>
       <Header />
-      <GlobalStorage>
-        <PokemonContent />
-      </GlobalStorage>
+      <PokemonContent />
     </>
   );
 }
