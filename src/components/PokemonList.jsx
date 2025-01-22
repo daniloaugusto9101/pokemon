@@ -2,14 +2,10 @@ import React from "react";
 import PokemonItem from "./PokemonItem";
 import { TbPokeball } from "react-icons/tb";
 import { GlobalContext } from "../contexts/GlobalContext";
-import ErrorMessage from "./ErrorMessage";
 
 const PokemonList = () => {
   const { listPokemons, total } = React.useContext(GlobalContext);
-  // const listPokemons = filteredPokemons.length > 0 ? filteredPokemons : allPokemons;
-  console.log("PokemonList", listPokemons);
 
-  // if (combinedError) return <ErrorMessage title="ERRO! Lista de Pokémons" message="Ocorreu um erro ao tentar repurar a lista de cards dos Pokémons" />;
   if (listPokemons) {
     return (
       <main className="flex justify-center mt-14 ">

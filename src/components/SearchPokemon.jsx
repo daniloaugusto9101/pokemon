@@ -2,6 +2,7 @@ import React from "react";
 import { IoFilterSharp } from "react-icons/io5";
 import { FaSearch } from "react-icons/fa";
 import { GlobalContext } from "../contexts/GlobalContext";
+import SelectedType from "./SelectedType";
 
 const SearchPokemon = () => {
   const { searchQuery, setSearchQuery, handleSearch } = React.useContext(GlobalContext);
@@ -20,10 +21,8 @@ const SearchPokemon = () => {
           </button>
           <input type="text" value={searchQuery || ""} placeholder="Pesquise um Pokémon" className="pl-6 pr-12 py-3 border-2 border-gray-300 rounded-full sm:min-w-96 focus:outline-none focus:shadow-md" onChange={(e) => setSearchQuery(e.target.value)} />
         </div>
-        <div className="flex items-center space-x-2">
-          <IoFilterSharp className="text-gray-500" />
-          <p>Filtrar por</p>
-        </div>
+
+        <SelectedType />
       </form>
     </section>
   );

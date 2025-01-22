@@ -9,6 +9,7 @@ export const GlobalStorage = ({ children }) => {
   const [loading, setLoading] = React.useState(true); // Status de carregamento
   const [page, setPage] = React.useState(1); // Página atual
   const [total, setTotal] = React.useState(0); // Total de Pokémons encontrados
+  const [selectedType, setSelectedType] = React.useState("");
   const itemsPerPage = 20;
 
   // Função para carregar os Pokémons com detalhes
@@ -67,5 +68,5 @@ export const GlobalStorage = ({ children }) => {
   // Lista ativa para exibição (filtrada ou completa)
   const listPokemons = filteredPokemons.length > 0 ? filteredPokemons : allPokemons;
 
-  return <GlobalContext.Provider value={{ searchQuery, setSearchQuery, listPokemons, loading, total, page, handlePageChange, handleSearch }}>{children}</GlobalContext.Provider>;
+  return <GlobalContext.Provider value={{ searchQuery, setSearchQuery, listPokemons, loading, total, page, handlePageChange, handleSearch, setFilteredPokemons }}>{children}</GlobalContext.Provider>;
 };
