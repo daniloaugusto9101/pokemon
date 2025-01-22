@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React from "react";
 import { GlobalContext } from "../contexts/GlobalContext";
 
 const SelectedType = () => {
@@ -11,7 +11,6 @@ const SelectedType = () => {
     try {
       const response = await fetch(`https://pokeapi.co/api/v2/type/${selectedType}`);
       const data = await response.json();
-      console.log(data);
 
       const pokemonDetails = await Promise.all(
         data.pokemon.map(async (pokemon) => {
@@ -20,7 +19,7 @@ const SelectedType = () => {
         })
       );
 
-      setFilteredPokemons(pokemonDetails); // Salva todos os detalhes
+      setFilteredPokemons(pokemonDetails);
     } catch (error) {
       console.error("Erro ao buscar os Pokémons:", error);
     } finally {

@@ -3,10 +3,9 @@ import React from "react";
 export const GlobalContext = React.createContext();
 
 export const GlobalStorage = ({ children }) => {
-  const [searchQuery, setSearchQuery] = React.useState(""); // Estado do termo de busca
   const [allPokemons, setAllPokemons] = React.useState([]); // Todos os Pokémons
   const [filteredPokemons, setFilteredPokemons] = React.useState([]); // Pokémons filtrados
-  const [loading, setLoading] = React.useState(true); // Status de carregamento
+  // const [loading, setLoading] = React.useState(true); // Status de carregamento
   const [page, setPage] = React.useState(1); // Página atual
   const [total, setTotal] = React.useState(0); // Total de Pokémons encontrados
   const [selectedType, setSelectedType] = React.useState("");
@@ -32,34 +31,12 @@ export const GlobalStorage = ({ children }) => {
       } catch (error) {
         console.error("Erro ao buscar os Pokémons:", error);
       } finally {
-        setLoading(false); // Finaliza o carregamento
+        // setLoading(false); // Finaliza o carregamento
       }
     };
 
     fetchPokemons();
   }, [page]);
-
-  // Função para buscar Pokémons filtrados quando o botão for clicado
-  const handleSearch = async () => {
-    const search = searchQuery.trim().toLowerCase();
-
-    try {
-      //Proteção para não buscar se não tiver nada digitado
-      if (!search) {
-        setFilteredPokemons([]);
-        return;
-      }
-
-      const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${searchQuery.trim().toLowerCase()}`);
-      const data = await response.json();
-
-      setFilteredPokemons([data]);
-    } catch (error) {
-      console.error("Erro ao buscar o Pokémon:", error);
-    } finally {
-      setLoading(false); // Finaliza o carregamento
-    }
-  };
 
   const handlePageChange = (event, value) => {
     setPage(value); // Atualiza a página atual
@@ -68,5 +45,5 @@ export const GlobalStorage = ({ children }) => {
   // Lista ativa para exibição (filtrada ou completa)
   const listPokemons = filteredPokemons.length > 0 ? filteredPokemons : allPokemons;
 
-  return <GlobalContext.Provider value={{ searchQuery, setSearchQuery, listPokemons, loading, total, page, handlePageChange, handleSearch, setFilteredPokemons }}>{children}</GlobalContext.Provider>;
+  return <GlobalContext.Provider value={{ listPokemons, total, page, handlePageChange, setFilteredPokemons }}>{children}</GlobalContext.Provider>;
 };
