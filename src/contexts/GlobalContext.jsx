@@ -40,11 +40,11 @@ export const GlobalStorage = ({ children }) => {
 
   // Função para buscar Pokémons filtrados quando o botão for clicado
   const handleSearch = async () => {
-    console.log("handleSearch:", searchQuery);
+    const search = searchQuery.trim().toLowerCase();
 
     try {
       //Proteção para não buscar se não tiver nada digitado
-      if (!searchQuery) {
+      if (!search) {
         setFilteredPokemons([]);
         return;
       }
