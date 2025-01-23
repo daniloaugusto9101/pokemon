@@ -2,10 +2,12 @@ import React from "react";
 import PokemonItem from "./PokemonItem";
 import { TbPokeball } from "react-icons/tb";
 import { GlobalContext } from "../contexts/GlobalContext";
+import Loading from "./Loading";
 
 const PokemonList = () => {
-  const { listPokemons, total } = React.useContext(GlobalContext);
+  const { listPokemons, total, loading } = React.useContext(GlobalContext);
 
+  if (loading) return <Loading />;
   if (listPokemons) {
     return (
       <main className="flex justify-center mt-14 ">

@@ -3,11 +3,13 @@ import { GlobalContext } from "../contexts/GlobalContext";
 
 const SelectedType = () => {
   const [selectedType, setSelectedType] = React.useState(""); // Tipo selecionado pelo usuário
-  const { setFilteredPokemons } = React.useContext(GlobalContext);
+  const { setFilteredPokemons, setError, setLoading } = React.useContext(GlobalContext);
 
   // Função para buscar Pokémons por tipo
   const handleFilterByType = async () => {
     try {
+      setError(null);
+      setLoading(true);
       const response = await fetch(`https://pokeapi.co/api/v2/type/${selectedType}`);
       const data = await response.json();
 
@@ -20,11 +22,11 @@ const SelectedType = () => {
 
       setFilteredPokemons(pokemonDetails);
     } catch (error) {
+      setError("Ocorreu um erro no hook useFetch() => " + error);
     } finally {
-      //   setLoading(false); // Finaliza o carregamento
+      setLoading(false);
     }
   };
-
   return (
     <div className="flex  items-center gap-4 ">
       <select

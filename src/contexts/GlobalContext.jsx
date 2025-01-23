@@ -5,7 +5,8 @@ export const GlobalContext = React.createContext();
 export const GlobalStorage = ({ children }) => {
   const [allPokemons, setAllPokemons] = React.useState([]); // Todos os Pokémons
   const [filteredPokemons, setFilteredPokemons] = React.useState([]); // Pokémons filtrados
-  // const [loading, setLoading] = React.useState(true); // Status de carregamento
+  const [loading, setLoading] = React.useState(false); // Status de carregamento
+  const [error, setError] = React.useState(null);
   const [page, setPage] = React.useState(1); // Página atual
   const [total, setTotal] = React.useState(0); // Total de Pokémons encontrados
   const itemsPerPage = 20;
@@ -26,7 +27,7 @@ export const GlobalStorage = ({ children }) => {
           })
         );
 
-        setAllPokemons(pokemonDetails.filter(Boolean)); // Salva todos os detalhes
+        setAllPokemons(pokemonDetails); // Salva todos os detalhes
       } catch (error) {
       } finally {
         // setLoading(false); // Finaliza o carregamento
@@ -44,5 +45,5 @@ export const GlobalStorage = ({ children }) => {
   // Lista ativa para exibição (filtrada ou completa)
   const listPokemons = filteredPokemons.length > 0 ? filteredPokemons : allPokemons;
 
-  return <GlobalContext.Provider value={{ listPokemons, total, page, handlePageChange, setFilteredPokemons }}>{children}</GlobalContext.Provider>;
+  return <GlobalContext.Provider value={{ error, setError, loading, setLoading, listPokemons, total, page, handlePageChange, setFilteredPokemons }}>{children}</GlobalContext.Provider>;
 };
