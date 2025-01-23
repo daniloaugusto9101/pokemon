@@ -1,16 +1,23 @@
 import React from "react";
 import { GlobalContext } from "../contexts/GlobalContext";
-import { IoFilterSharp } from "react-icons/io5";
 
 const SelectedType = () => {
   const [selectedType, setSelectedType] = React.useState(""); // Tipo selecionado pelo usuário
-  const { setFilteredPokemons, setSearchQuery, setError, setLoading } = React.useContext(GlobalContext);
+  const { setFilteredPokemons, setError, setLoading } = React.useContext(GlobalContext);
 
   // Função para buscar Pokémons por tipo
   const handleFilterByType = async (type) => {
+    const search = type.trim().toLowerCase();
     try {
       setError(null);
       setLoading(true);
+
+      //Proteção para não buscar se não tiver nada digitado
+      if (!search) {
+        setFilteredPokemons([]);
+        return;
+      }
+
       const response = await fetch(`https://pokeapi.co/api/v2/type/${type}`);
       const data = await response.json();
 
@@ -64,9 +71,9 @@ const SelectedType = () => {
         <option value="steel">⚙️ Aço</option>
         <option value="flying">🦅 Voador</option>
       </select>
-      {/* <button onClick={(e) => setSearchQuery(e.target.value)} className="px-4 py-2 bg-blue-500 text-white font-semibold rounded-md shadow-md hover:bg-blue-600 transition duration-300">
+      <button onClick={(e) => handleFilterByType("")} className="px-4 py-2 bg-blue-500 text-white font-semibold rounded-md shadow-md hover:bg-blue-600 transition duration-300">
         Resetar
-      </button> */}
+      </button>
     </div>
   );
 };
