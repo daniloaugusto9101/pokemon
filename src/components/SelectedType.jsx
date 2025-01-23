@@ -7,7 +7,6 @@ const SelectedType = () => {
 
   // Função para buscar Pokémons por tipo
   const handleFilterByType = async () => {
-    console.log("Filtrando por tipo", selectedType);
     try {
       const response = await fetch(`https://pokeapi.co/api/v2/type/${selectedType}`);
       const data = await response.json();
@@ -21,7 +20,6 @@ const SelectedType = () => {
 
       setFilteredPokemons(pokemonDetails);
     } catch (error) {
-      console.error("Erro ao buscar os Pokémons:", error);
     } finally {
       //   setLoading(false); // Finaliza o carregamento
     }

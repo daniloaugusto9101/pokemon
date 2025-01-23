@@ -22,7 +22,6 @@ const SearchInput = () => {
 
       setFilteredPokemons([data]);
     } catch (error) {
-      console.error("Erro ao buscar o Pokémon:", error);
     } finally {
       // setLoading(false); // Finaliza o carregamento
     }

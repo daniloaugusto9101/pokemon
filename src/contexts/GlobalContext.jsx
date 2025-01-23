@@ -28,7 +28,6 @@ export const GlobalStorage = ({ children }) => {
 
         setAllPokemons(pokemonDetails.filter(Boolean)); // Salva todos os detalhes
       } catch (error) {
-        console.error("Erro ao buscar os Pokémons:", error);
       } finally {
         // setLoading(false); // Finaliza o carregamento
       }
