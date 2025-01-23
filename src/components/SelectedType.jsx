@@ -1,16 +1,17 @@
 import React from "react";
 import { GlobalContext } from "../contexts/GlobalContext";
+import { IoFilterSharp } from "react-icons/io5";
 
 const SelectedType = () => {
   const [selectedType, setSelectedType] = React.useState(""); // Tipo selecionado pelo usuário
-  const { setFilteredPokemons, setError, setLoading } = React.useContext(GlobalContext);
+  const { setFilteredPokemons, setSearchQuery, setError, setLoading } = React.useContext(GlobalContext);
 
   // Função para buscar Pokémons por tipo
-  const handleFilterByType = async () => {
+  const handleFilterByType = async (type) => {
     try {
       setError(null);
       setLoading(true);
-      const response = await fetch(`https://pokeapi.co/api/v2/type/${selectedType}`);
+      const response = await fetch(`https://pokeapi.co/api/v2/type/${type}`);
       const data = await response.json();
 
       const pokemonDetails = await Promise.all(
@@ -27,17 +28,22 @@ const SelectedType = () => {
       setLoading(false);
     }
   };
+
   return (
     <div className="flex  items-center gap-4 ">
       <select
         value={selectedType}
-        onChange={(e) => {
-          setSelectedType(e.target.value);
+        onChange={async (e) => {
+          const newValue = e.target.value;
+          setSelectedType(newValue);
+          if (newValue) {
+            await handleFilterByType(newValue);
+          }
         }}
-        className="w-64 p-2 border rounded-md shadow-sm focus:ring-2 focus:ring-blue-500 focus:outline-none bg-white text-gray-700"
+        className="w-64 px-2 py-4 border rounded-md shadow-sm focus:ring-2 focus:ring-blue-500 focus:outline-none bg-white text-gray-700"
       >
         <option value="" disabled>
-          Selecione um tipo
+          Filtra por
         </option>
         <option value="fire">🔥 Fogo</option>
         <option value="water">💧 Água</option>
@@ -58,9 +64,9 @@ const SelectedType = () => {
         <option value="steel">⚙️ Aço</option>
         <option value="flying">🦅 Voador</option>
       </select>
-      <button onClick={handleFilterByType} className="px-4 py-2 bg-blue-500 text-white font-semibold rounded-md shadow-md hover:bg-blue-600 transition duration-300">
-        Filtrar
-      </button>
+      {/* <button onClick={(e) => setSearchQuery(e.target.value)} className="px-4 py-2 bg-blue-500 text-white font-semibold rounded-md shadow-md hover:bg-blue-600 transition duration-300">
+        Resetar
+      </button> */}
     </div>
   );
 };
