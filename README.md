@@ -1,7 +1,5 @@
 # Pokémon APP
 
-![pokemon-app](https://media.giphy.com/media/3o7aD2saalBwwftBIY/giphy.gif)
-
 https://github.com/user-attachments/assets/9f9a7266-6efb-480b-8810-0040f3c0666c
 
 
