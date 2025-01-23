@@ -8,7 +8,6 @@ export const GlobalStorage = ({ children }) => {
   // const [loading, setLoading] = React.useState(true); // Status de carregamento
   const [page, setPage] = React.useState(1); // Página atual
   const [total, setTotal] = React.useState(0); // Total de Pokémons encontrados
-  const [selectedType, setSelectedType] = React.useState("");
   const itemsPerPage = 20;
 
   // Função para carregar os Pokémons com detalhes
@@ -38,8 +37,9 @@ export const GlobalStorage = ({ children }) => {
     fetchPokemons();
   }, [page]);
 
+  //Atualização da paginção
   const handlePageChange = (event, value) => {
-    setPage(value); // Atualiza a página atual
+    setPage(value);
   };
 
   // Lista ativa para exibição (filtrada ou completa)
