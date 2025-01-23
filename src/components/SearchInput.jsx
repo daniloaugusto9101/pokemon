@@ -34,14 +34,14 @@ const SearchInput = () => {
   const color2 = error ? "border-red-300" : "border-gray-300";
 
   return (
-    <div>
-      <div className="relative">
+    <div className=" w-full md:w-[420px]">
+      <div className="relative 0">
         <button className={`${color1} absolute right-3 top-1/2 transform -translate-y-1/2 p-2 rounded-full cursor-pointer`} type="text" onClick={handleSearch}>
           <FaSearch />
         </button>
-        <input type="text" value={searchQuery || ""} placeholder="Pesquise um Pokémon" className={` ${color2} pl-6 pr-12 py-3 border-2  rounded-full sm:min-w-96 focus:outline-none focus:shadow-md`} onChange={(e) => setSearchQuery(e.target.value)} />
+        <input type="text" value={searchQuery || ""} placeholder="Pesquise um Pokémon" className={` ${color2} pl-6 pr-12 py-3 border-2 rounded-full focus:outline-none focus:shadow-md w-full`} onChange={(e) => setSearchQuery(e.target.value)} />
       </div>
-      {error && <span className="m-2 text-red-400 text-sm">Nenhum item encontrado, tente novamente!</span>}
+      {error && <span className="m-2 text-red-400 text-[10px]">Nenhum item encontrado, tente novamente!</span>}
     </div>
   );
 };
