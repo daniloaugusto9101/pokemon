@@ -37,7 +37,7 @@ const SelectedType = () => {
   };
 
   return (
-    <div className="flex  items-center gap-4 ">
+    <div className="flex items-center flex-col md:flex-row gap-4 ">
       <select
         value={selectedType}
         onChange={async (e) => {
